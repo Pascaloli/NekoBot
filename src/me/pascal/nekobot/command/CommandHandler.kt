@@ -1,76 +1,104 @@
 package me.pascal.nekobot.command
 
+import me.pascal.nekobot.command.commands.ChangePrefixCommand
+import me.pascal.nekobot.command.commands.ChangeSuffixCommand
+import me.pascal.nekobot.command.commands.NekoCommand
+import me.pascal.nekobot.command.commands.ToggleNSFWCommand
+import net.dv8tion.jda.api.Permission
 import net.dv8tion.jda.api.entities.Message
 
 class CommandHandler {
 
-    val commands = arrayListOf<Command>(
-        Command("femdom", LEVEL.NSFW, TYPE.IMAGE),
-        Command("tickle", LEVEL.SFW, TYPE.IMAGE),
-        Command("classic", LEVEL.NSFW, TYPE.IMAGE),
-        Command("ngif", LEVEL.NSFW, TYPE.IMAGE),
-        Command("erofeet", LEVEL.NSFW, TYPE.IMAGE),
-        Command("meow", LEVEL.SFW, TYPE.IMAGE),
-        Command("erok", LEVEL.NSFW, TYPE.IMAGE),
-        Command("poke", LEVEL.SFW, TYPE.IMAGE),
-        Command("les", LEVEL.NSFW, TYPE.IMAGE),
-        Command("hololewd", LEVEL.NSFW, TYPE.IMAGE),
-        Command("lewdk", LEVEL.NSFW, TYPE.IMAGE),
-        Command("keta", LEVEL.NSFW, TYPE.IMAGE),
-        Command("feetg", LEVEL.NSFW, TYPE.IMAGE),
-        Command("nsfw_neko_gif", LEVEL.NSFW, TYPE.IMAGE),
-        Command("eroyuri", LEVEL.NSFW, TYPE.IMAGE),
-        Command("kiss", LEVEL.SFW, TYPE.IMAGE),
-        Command("8ball", LEVEL.SFW, TYPE.IMAGE),
-        Command("kuni", LEVEL.NSFW, TYPE.IMAGE),
-        Command("tits", LEVEL.NSFW, TYPE.IMAGE),
-        Command("pussy_jpg", LEVEL.NSFW, TYPE.IMAGE),
-        Command("cum_jpg", LEVEL.NSFW, TYPE.IMAGE),
-        Command("pussy", LEVEL.NSFW, TYPE.IMAGE),
-        Command("lewdkemo", LEVEL.NSFW, TYPE.IMAGE),
-        Command("lizard", LEVEL.SFW, TYPE.IMAGE),
-        Command("slap", LEVEL.SFW, TYPE.IMAGE),
-        Command("lewd", LEVEL.NSFW, TYPE.IMAGE),
-        Command("cum", LEVEL.NSFW, TYPE.IMAGE),
-        Command("cuddle", LEVEL.SFW, TYPE.IMAGE),
-        Command("spank", LEVEL.NSFW, TYPE.IMAGE),
-        Command("goose", LEVEL.SFW, TYPE.IMAGE),
-        Command("Random_hentai_gif", LEVEL.NSFW, TYPE.IMAGE),
-        Command("avatar", LEVEL.SFW, TYPE.IMAGE),
-        Command("fox_girl", LEVEL.SFW, TYPE.IMAGE),
-        Command("nsfw_avatar", LEVEL.NSFW, TYPE.IMAGE),
-        Command("hug", LEVEL.SFW, TYPE.IMAGE),
-        Command("gecg", LEVEL.SFW, TYPE.IMAGE),
-        Command("boobs", LEVEL.NSFW, TYPE.IMAGE),
-        Command("pat", LEVEL.SFW, TYPE.IMAGE),
-        Command("feet", LEVEL.NSFW, TYPE.IMAGE),
-        Command("smug", LEVEL.SFW, TYPE.IMAGE),
-        Command("kemonomimi", LEVEL.SFW, TYPE.IMAGE),
-        Command("solog", LEVEL.NSFW, TYPE.IMAGE),
-        Command("holo", LEVEL.SFW, TYPE.IMAGE),
-        Command("wallpaper", LEVEL.NSFW, TYPE.IMAGE),
-        Command("bj", LEVEL.NSFW, TYPE.IMAGE),
-        Command("woof", LEVEL.SFW, TYPE.IMAGE),
-        Command("yuri", LEVEL.NSFW, TYPE.IMAGE),
-        Command("trap", LEVEL.NSFW, TYPE.IMAGE),
-        Command("anal", LEVEL.NSFW, TYPE.IMAGE),
-        Command("baka", LEVEL.SFW, TYPE.IMAGE),
-        Command("blowjob", LEVEL.NSFW, TYPE.IMAGE),
-        Command("holoero", LEVEL.NSFW, TYPE.IMAGE),
-        Command("feed", LEVEL.SFW, TYPE.IMAGE),
-        Command("neko", LEVEL.SFW, TYPE.IMAGE),
-        Command("gasm", LEVEL.SFW, TYPE.IMAGE),
-        Command("hentai", LEVEL.NSFW, TYPE.IMAGE),
-        Command("futanari", LEVEL.NSFW, TYPE.IMAGE),
-        Command("ero", LEVEL.NSFW, TYPE.IMAGE),
-        Command("solo", LEVEL.NSFW, TYPE.IMAGE),
-        Command("waifu", LEVEL.SFW, TYPE.IMAGE),
-        Command("pwankg", LEVEL.NSFW, TYPE.IMAGE),
-        Command("eron", LEVEL.NSFW, TYPE.IMAGE),
-        Command("erokemo", LEVEL.NSFW, TYPE.IMAGE)
+    private val commands = arrayListOf(
+
+        ChangePrefixCommand(),
+        ChangeSuffixCommand(),
+        ToggleNSFWCommand(),
+
+        NekoCommand("tickle", "tickled", LEVEL.SFW, NekoCommand.TYPE.ACTION),
+        NekoCommand("poke", "poked", LEVEL.SFW, NekoCommand.TYPE.ACTION),
+        NekoCommand("kiss", "kissed", LEVEL.SFW, NekoCommand.TYPE.ACTION),
+        NekoCommand("slap", "slapped", LEVEL.SFW, NekoCommand.TYPE.ACTION),
+        NekoCommand("hug", "hugged", LEVEL.SFW, NekoCommand.TYPE.ACTION),
+        NekoCommand("pat", "patted", LEVEL.SFW, NekoCommand.TYPE.ACTION),
+        NekoCommand("feed", "fed", LEVEL.SFW, NekoCommand.TYPE.ACTION),
+        NekoCommand("cuddle", "cuddled", LEVEL.SFW, NekoCommand.TYPE.ACTION),
+        NekoCommand("spank", "spanked", LEVEL.NSFW, NekoCommand.TYPE.ACTION),
+
+
+        NekoCommand("meow", LEVEL.SFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("8ball", LEVEL.SFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("lizard", LEVEL.SFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("goose", LEVEL.SFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("avatar", LEVEL.SFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("fox_girl", LEVEL.SFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("gecg", LEVEL.SFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("smug", LEVEL.SFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("kemonomimi", LEVEL.SFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("holo", LEVEL.SFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("woof", LEVEL.SFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("baka", LEVEL.SFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("neko", LEVEL.SFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("gasm", LEVEL.SFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("waifu", LEVEL.SFW, NekoCommand.TYPE.IMAGE),
+
+        NekoCommand("femdom", LEVEL.NSFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("classic", LEVEL.NSFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("ngif", LEVEL.NSFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("erofeet", LEVEL.NSFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("erok", LEVEL.NSFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("les", LEVEL.NSFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("hololewd", LEVEL.NSFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("lewdk", LEVEL.NSFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("keta", LEVEL.NSFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("feetg", LEVEL.NSFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("nsfw_neko_gif", LEVEL.NSFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("eroyuri", LEVEL.NSFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("kuni", LEVEL.NSFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("tits", LEVEL.NSFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("pussy_jpg", LEVEL.NSFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("cum_jpg", LEVEL.NSFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("pussy", LEVEL.NSFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("lewdkemo", LEVEL.NSFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("lewd", LEVEL.NSFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("cum", LEVEL.NSFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("Random_hentai_gif", LEVEL.NSFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("nsfw_avatar", LEVEL.NSFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("boobs", LEVEL.NSFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("feet", LEVEL.NSFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("solog", LEVEL.NSFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("wallpaper", LEVEL.NSFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("bj", LEVEL.NSFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("yuri", LEVEL.NSFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("trap", LEVEL.NSFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("anal", LEVEL.NSFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("blowjob", LEVEL.NSFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("holoero", LEVEL.NSFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("hentai", LEVEL.NSFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("futanari", LEVEL.NSFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("ero", LEVEL.NSFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("solo", LEVEL.NSFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("pwankg", LEVEL.NSFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("eron", LEVEL.NSFW, NekoCommand.TYPE.IMAGE),
+        NekoCommand("erokemo", LEVEL.NSFW, NekoCommand.TYPE.IMAGE)
     )
 
-    fun handle(message: Message) {
+    fun getCommand(name: String): Command? {
+        return commands.firstOrNull { it.trigger == name }
+    }
 
+    fun handle(message: Message, command: Command) {
+        if (command.permissions == PERMISSIONS.ADMIN) {
+            val author = message.member!!
+            //TODO: REMOVE HARDCODED ID (DEBUG PURPOSES)
+            if (author.hasPermission(Permission.ADMINISTRATOR) || author.user.id=="526189924559618089") {
+                command.handle(message)
+            } else {
+                message.channel.sendMessage("You can't use this command.").queue()
+            }
+
+        } else {
+            command.handle(message)
+        }
     }
 }
