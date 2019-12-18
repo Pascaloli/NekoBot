@@ -2,7 +2,7 @@ package me.pascal.nekobot.utils
 
 import java.net.URL
 
-object NekoUtil {
+object NekosLifeUtil {
 
     fun getImage(endpoint: String): String {
         val url = "https://nekos.life/api/v2/img/$endpoint"

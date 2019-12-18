@@ -1,12 +1,11 @@
-package me.pascal.nekobot.command.commands
+package me.pascal.nekobot.command.impl.default
 
 import me.pascal.nekobot.NekoBot
 import me.pascal.nekobot.command.Command
-import me.pascal.nekobot.command.LEVEL
 import me.pascal.nekobot.command.PERMISSIONS
 import net.dv8tion.jda.api.entities.Message
 
-class ChangePrefixCommand : Command("prefix", LEVEL.NONE, PERMISSIONS.ADMIN) {
+class ChangePrefixCommand : Command("prefix", permissions = PERMISSIONS.ADMIN) {
 
     override fun handle(message: Message) {
         val arguments = message.contentRaw.split(" ", limit = 2)
@@ -23,22 +22,14 @@ class ChangePrefixCommand : Command("prefix", LEVEL.NONE, PERMISSIONS.ADMIN) {
                 message.channel.sendMessage("Prefix cannot contain a space.").queue()
                 return
             } else if (newPrefix == "rem" || newPrefix == "del" || newPrefix == "remove" || newPrefix == "delete") {
-                val query = "UPDATE servers SET prefix = '' WHERE guildID = ${message.guild.id}"
-                dbConnection.createStatement().use {
-                    it.execute(query)
-                    NekoBot.cacheHandler.updateCache(message.guild.id, prefix = "")
-                    message.channel.sendMessage("Prefix has been removed.").queue()
-                }
+                NekoBot.cacheHandler.updateCache(message.guild.id, prefix = "")
+                message.channel.sendMessage("Prefix has been removed.").queue()
                 return
             } else if (newPrefix.length > 3) {
                 message.channel.sendMessage("Prefix cannot be longer than 3 characters.").queue()
                 return
             }
 
-            val query = "UPDATE servers SET prefix = ? WHERE guildID = ${message.guild.id}"
-            val prepStatement = dbConnection.prepareStatement(query)
-            prepStatement.setString(1, newPrefix)
-            prepStatement.execute()
             NekoBot.cacheHandler.updateCache(message.guild.id, prefix = newPrefix)
             message.channel.sendMessage("Prefix successfully changed to `$newPrefix`.").queue()
         }

@@ -83,7 +83,7 @@ class NekoBot {
         println("Neko Bot is ready - Remember: The default prefix and suffix is !'")
     }
 
-    fun prepareDB() {
+    private fun prepareDB() {
         val configTable =
             "CREATE TABLE IF NOT EXISTS config \n" +
                     "( \n" +
@@ -104,7 +104,7 @@ class NekoBot {
         }
     }
 
-    fun prepareServersTable() {
+    private fun prepareServersTable() {
         dbConnection.createStatement().use {
             val rs = it.executeQuery("SELECT guildID FROM servers")
             val guilds = this.jda.guilds.stream().collect(Collectors.toList())
@@ -123,7 +123,7 @@ class NekoBot {
         }
     }
 
-    fun askForToken(message: String, updateDB: Boolean): String {
+    private fun askForToken(message: String, updateDB: Boolean): String {
         print(message)
         val token = scanner.nextLine()
 

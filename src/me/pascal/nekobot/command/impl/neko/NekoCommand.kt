@@ -1,10 +1,10 @@
-package me.pascal.nekobot.command.commands
+package me.pascal.nekobot.command.impl.neko
 
 import me.pascal.nekobot.NekoBot
 import me.pascal.nekobot.command.Command
 import me.pascal.nekobot.command.LEVEL
 import me.pascal.nekobot.command.PERMISSIONS
-import me.pascal.nekobot.utils.NekoUtil
+import me.pascal.nekobot.utils.NekosLifeUtil
 import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.MessageBuilder
 import net.dv8tion.jda.api.entities.Message
@@ -13,20 +13,23 @@ import java.util.*
 
 class NekoCommand : Command {
 
-    private lateinit var actionMessage: String
-    private lateinit var nekoType: TYPE
+    private var actionMessage: String?
+    private var nekoType: TYPE
 
-    constructor(trigger: String, level: LEVEL, type: TYPE) : super(trigger, level, PERMISSIONS.USER) {
+    constructor(trigger: String, level: LEVEL, type: TYPE) :
+            super(trigger, level, PERMISSIONS.USER) {
         this.nekoType = type
+        this.actionMessage = null
     }
 
-    constructor(trigger: String, actionMessage: String, level: LEVEL, type: TYPE) : super(
-        trigger,
-        level,
-        PERMISSIONS.USER
-    ) {
+    constructor(trigger: String, actionMessage: String, level: LEVEL, type: TYPE) :
+            super(trigger, level, PERMISSIONS.USER) {
         this.nekoType = type
         this.actionMessage = actionMessage
+    }
+
+    fun getNekoType() : TYPE {
+        return nekoType
     }
 
     override fun handle(message: Message) {
@@ -36,13 +39,13 @@ class NekoCommand : Command {
         if (nsfwCommand) {
             if (!nsfwEnabled || !nsfwChannel) {
                 message.channel.sendMessage("NSFW is disabled for this ${if (!nsfwEnabled) "server" else "channel"}.")
-                    .queue()
+                        .queue()
                 return
             }
         }
 
         if (this.nekoType == TYPE.ACTION || this.nekoType == TYPE.IMAGE) {
-            val imageJSON = NekoUtil.getImage(this.trigger)
+            val imageJSON = NekosLifeUtil.getImage(this.trigger)
             val imageURL = JSONObject(Objects.requireNonNull(imageJSON).toString()).get("url").toString()
             val messageBuilder = MessageBuilder()
             val embed = EmbedBuilder()
