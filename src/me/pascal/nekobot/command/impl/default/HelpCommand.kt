@@ -32,12 +32,13 @@ class HelpCommand : Command("help") {
     }
 
     private fun getNekos(): String {
-        val nekoCommands = NekoBot.commandHandler.getCommands().filterIsInstance<NekoCommand>()
-        var temp = "**Actions**: "
-        temp += nekoCommands.filter { it.getNekoType() == NekoCommand.TYPE.ACTION }.joinToString { if (it.level == LEVEL.NSFW) "*${it.trigger}*" else it.trigger }
-        temp += "\n**Images**: "
-        temp += nekoCommands.filter { it.getNekoType() == NekoCommand.TYPE.IMAGE }.joinToString { if (it.level == LEVEL.NSFW) "*${it.trigger}*" else it.trigger }
-        return temp
+        return NekoBot.commandHandler.getCommands()
+                .asSequence()
+                .filterIsInstance<NekoCommand>()
+                .map { it.getNekoType() to (if (it.level == LEVEL.NSFW) "*${it.trigger}*" else it.trigger) }
+                .groupBy { it.first }
+                .map { (type, triggers) -> type to triggers }
+                .joinToString("\n") { (type, triggers) -> "**${type.name}**: ${triggers.joinToString { it.second }}" }
     }
 
 }

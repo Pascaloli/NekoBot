@@ -28,7 +28,7 @@ class NekoCommand : Command {
         this.actionMessage = actionMessage
     }
 
-    fun getNekoType() : TYPE {
+    fun getNekoType(): TYPE {
         return nekoType
     }
 
@@ -71,7 +71,11 @@ class NekoCommand : Command {
     }
 
     enum class TYPE {
-        IMAGE, ACTION, TEXT
+        IMAGE, ACTION, TEXT;
+
+        fun getScreenName(): String {
+            return this.name
+        }
     }
 
 }
