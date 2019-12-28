@@ -10,18 +10,11 @@ import java.sql.Connection
 class EventListener(val jda: JDA, val dbConnection: Connection) : ListenerAdapter() {
 
     override fun onGuildJoin(event: GuildJoinEvent) {
-        val query = "INSERT INTO servers(guildID) VALUES(${event.guild.id})"
-        dbConnection.createStatement().use {
-            it.execute(query)
-        }
-        super.onGuildJoin(event)
+        if (!NekoBot.cacheHandler.hasCache(event.guild.id))
+            NekoBot.cacheHandler.createCache(event.guild)
     }
 
     override fun onReady(event: ReadyEvent) {
-        for (guild in event.jda.guilds) {
-
-        }
-
         super.onReady(event)
     }
 
@@ -35,7 +28,7 @@ class EventListener(val jda: JDA, val dbConnection: Connection) : ListenerAdapte
 
         if (possibleCommand.startsWith(prefix) && possibleCommand.endsWith(suffix)) {
             val actualCommand =
-                possibleCommand.substring(prefix.length, possibleCommand.length - suffix.length)
+                    possibleCommand.substring(prefix.length, possibleCommand.length - suffix.length)
 
             val command = NekoBot.commandHandler.getCommand(actualCommand)
             if (command != null)

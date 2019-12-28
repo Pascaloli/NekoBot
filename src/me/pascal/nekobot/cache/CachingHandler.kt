@@ -1,6 +1,7 @@
 package me.pascal.nekobot.cache
 
 import me.pascal.nekobot.NekoBot
+import net.dv8tion.jda.api.entities.Guild
 
 class CachingHandler {
 
@@ -39,8 +40,22 @@ class CachingHandler {
         }
     }
 
+    fun createCache(guild: Guild) {
+        val query = "INSERT INTO servers(guildID) VALUES(${guild.id})"
+        NekoBot.dbConnection.createStatement().use {
+            it.execute(query)
+        }
+
+        val cache = ServerCache(guild.id)
+        this.serverCache.add(cache)
+    }
+
     fun getCache(id: String): ServerCache {
         return serverCache.first { it.guildID == id }
+    }
+
+    fun hasCache(id: String): Boolean {
+        return serverCache.firstOrNull { it.guildID == id } != null
     }
 
 }
